@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "lint": "npx eslint .",
+    "format": "prettier --write 'src/**/*.{js,jsx,json,ts,tsx}'"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +19,9 @@
     "mongoose": "^8.4.5"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.2"
   }
 }
