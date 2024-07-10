@@ -32,4 +32,23 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { createUser, login };
+const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (user) {
+      res.status(200).send(user);
+    }
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+const logout = (req, res) => {
+  res.cookie('jwt', 'none', {
+    maxAge: 5000,
+    httpOnly: true,
+    sameSite: true,
+  });
+};
+
+module.exports = { createUser, login, logout, getUser };
