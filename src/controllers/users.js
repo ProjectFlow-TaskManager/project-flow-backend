@@ -7,7 +7,7 @@ const createUser = async (req, res) => {
   try {
     const hash = await bcrypt.hash(password, 10);
     const user = await User.create({ email, password: hash, name });
-    res.status(201).send(user); // Статус 201 для создания
+    res.status(201).send(user);
   } catch (err) {
     res.status(400).send({ message: err.message });
   }
@@ -34,12 +34,18 @@ const login = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
+    if (!req.user || !req.user._id) {
+      return res.status(401).send({ message: 'Необходима авторизация' });
+    }
+
     const user = await User.findById(req.user._id);
     if (user) {
-      res.status(200).send(user);
+      res.send(user);
+    } else {
+      res.status(404).send({ message: 'Пользователь не найден' });
     }
   } catch (err) {
-    res.send(err);
+    res.status(500).send({ message: err.message });
   }
 };
 
