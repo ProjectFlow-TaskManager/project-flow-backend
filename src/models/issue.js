@@ -9,7 +9,7 @@ const issueSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  author: {
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User',
@@ -19,9 +19,8 @@ const issueSchema = new mongoose.Schema({
     enum: ['open', 'closed'],
     default: 'open',
   },
-  progress: {
-    type: String,
-    enum: ['todo', 'doing', 'done'],
-    default: 'todo',
-  },
+  label: [String],
+  project: { type: mongoose.Schema.Types.ObjectId, ref: 'Project' },
 });
+
+module.exports = mongoose.model('Issue', issueSchema);
