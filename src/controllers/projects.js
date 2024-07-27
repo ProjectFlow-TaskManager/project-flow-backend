@@ -2,7 +2,9 @@ const Project = require('../models/project');
 
 const getProjects = async (req, res, next) => {
   try {
-    const projects = await Project.find({}).populate('owner');
+    const projects = await Project.find({ owner: req.user._id }).populate(
+      'owner'
+    );
     res.status(200).send(projects);
   } catch (err) {
     next(err);
